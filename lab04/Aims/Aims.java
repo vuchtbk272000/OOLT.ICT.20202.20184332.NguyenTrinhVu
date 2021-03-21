@@ -11,11 +11,11 @@ public class Aims {
 		DVD dvd1 = new DVD("The Lion King", "Animation","Roger Allers",87,19.95f);
 		DVD dvd2 = new DVD("Star Wars","Science Ficiton","George Lucas",87, 24.95f);
 		DVD dvd3 = new DVD("Aladdin","Animation",18.99f);
+		DVD [] arDVD= {new DVD("Naruto"), new DVD("Attack on titan")};
 		anOrder.addDVD(dvd1);
 		anOrder.addDVD(dvd2);
 		anOrder.addDVD(dvd3);
 //		anOrder.addDVD(dvd1, dvd2);
-		DVD [] arDVD= {new DVD("Naruto"), new DVD("Attack on titan")};
 		anOrder.addDVD(arDVD);
 		for (int i =0; i<anOrder.getQty();i++)
 			System.out.println(anOrder.getDVD(i).getTitle());

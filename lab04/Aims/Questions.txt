@@ -1,0 +1,13 @@
+1. After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+-Because the swap function not only swap the objects' value but also their address
+jungleDVD becomes cinderellaDVD
+cinderellaDVD becomes jungleDVD
+=> values of the objects still remain
+
+2.After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+-Because the change function created new DVD and set its title by ciderella.
+
+3.Suggestion: Write a getDetail() method for the DigitalVideoDisc class. What should be the return type of
+this method?
+-If getDetail() method is needed, its return type should be String of values
+Ex: "Aladin, Animation,18.99" 
