@@ -1,7 +1,0 @@
-System.out.println("String time:"+ (System.currentTimeMillis()-start)+"ms");
-System.out.println("String time:"+ (System.currentTimeMillis()-start)+"ms");
-System.out.println("String time:"+ (System.currentTimeMillis()-start)+"ms");
-System.out.println("String time:"+ (System.currentTimeMillis()-start)+"ms");
-System.out.println("String time:"+ (System.currentTimeMillis()-start)+"ms");
-System.out.println("String time:"+ (System.currentTimeMillis()-start)+"ms");
-System.out.println("String time:"+ (System.currentTimeMillis()-start)+"ms");
