@@ -19,8 +19,8 @@ public class Aims {
 		aStore.addDVD(dvd2);
 		aStore.addDVD(dvd3);
 		Cart anOrder = new Cart();
-		anOrder.addDVD(dvd3);
-		anOrder.addDVD(dvd1,dvd2);
+//		anOrder.addDVD(dvd3);
+//		anOrder.addDVD(dvd1,dvd2);
 		
 		int check=0;
 		
@@ -55,68 +55,71 @@ public class Aims {
 							anOrder.addDVD(aStore.getDVD(i));
 							break;
 						case 3:
-							int innerchoice;
-							do {
-								aStore.cartMenu();
-								innerchoice = keyboard.nextInt();
-								switch(innerchoice){
-								case 1:
-									System.out.println("Filter by:\n1. ID\n2. title\n");
-									i = keyboard.nextInt();
-									if (i==1) {
-										System.out.println("input id: ");
-										int id = keyboard.nextInt();
-										sample = anOrder.searchById(id);
+							if (anOrder.getQty()!=0) {
+								int innerchoice;
+								do {
+									aStore.cartMenu();
+									innerchoice = keyboard.nextInt();
+									switch(innerchoice){
+									case 1:
+										System.out.println("Filter by:\n1. ID\n2. title\n");
+										i = keyboard.nextInt();
+										if (i==1) {
+											System.out.println("input id: ");
+											int id = keyboard.nextInt();
+											sample = anOrder.searchById(id);
 									}
-									else {
-										System.out.println("input keyword: ");
-										keyboard.nextLine();
-										String token= keyboard.nextLine();
-										sample = anOrder.searchByTitle(token);
-									}
-									int c=0;
-									for (DVD disc : sample) {
-										if (disc != null)
-												c++;
-									}
-									if (c>0)
-										for(DVD disc : sample) {
+										else {
+											System.out.println("input keyword: ");
+											keyboard.nextLine();
+											String token= keyboard.nextLine();
+											sample = anOrder.searchByTitle(token);
+										}	
+										int c=0;
+										for (DVD disc : sample) {
 											if (disc != null)
-											disc.printDVD(disc);
+												c++;
 										}
-									else System.out.println("no DVD matched");
+										if (c>0)
+											for(DVD disc : sample) {
+												if (disc != null)
+													disc.printDVD(disc);
+											}
+										else System.out.println("no DVD matched");
 								
-									break;
-								case 2: 
-									System.out.println("Sort by:\n1. cost\n2. title\n3. title-cost-length\n");
-									i = keyboard.nextInt();
-									if (i==1) { 
-										anOrder.sortByCost();										
-									}
-									else if (i==2)
-										anOrder.sortByTitle();
-									else anOrder.sortAllField();
-									anOrder.printCart();
-									break;
-								case 3:
-									System.out.println("id of the DVD to removed:");
-									int id= keyboard.nextInt();
-									for (i=0;i<anOrder.getQty();i++) {
-										if (anOrder.getDVD(i).getId()==id) {
-											anOrder.removeDVD(anOrder.getDVD(i));
-											break;
+										break;
+									case 2: 
+										System.out.println("Sort by:\n1. cost\n2. title\n3. title-cost-length\n");
+										i = keyboard.nextInt();
+										if (i==1) { 
+											anOrder.sortByCost();										
 										}
-									}
-									break;
-								case 4:
-									System.out.println("an order\r\n"
-											+ "is created and empty the current cart");
-									break;
-									
-								}
-								
-							}while (innerchoice !=0);	
-							break;
+										else if (i==2)
+											anOrder.sortByTitle();
+										else anOrder.sortAllField();
+										anOrder.printCart();
+										break;
+									case 3:
+										System.out.println("id of the DVD to removed:");
+										int id= keyboard.nextInt();
+										for (i=0;i<anOrder.getQty();i++) {
+											if (anOrder.getDVD(i).getId()==id) {
+												anOrder.removeDVD(anOrder.getDVD(i));
+												break;
+											}
+										}
+										break;
+									case 4:
+										System.out.println("an order is created ");
+										while(anOrder.getQty()!=0) {
+											anOrder.removeDVD(0);
+										}
+										break;										
+									}									
+								}while (innerchoice !=0);	
+								break;
+							}
+							else System.out.println("the cart is empty");
 						}
 					}while (choice !=0);
 					break;
@@ -137,7 +140,7 @@ public class Aims {
 					}
 					break;
 				case 3:
-					
+					if (anOrder.getQty()!=0) {
 					do {
 						aStore.cartMenu();
 						choice = keyboard.nextInt();
@@ -198,7 +201,8 @@ public class Aims {
 						
 					}while (choice !=0);	
 					break;
-				
+					}
+					else System.out.println("the cart is empty");
 			}
 		}while (check !=0);
 		

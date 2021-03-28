@@ -227,12 +227,13 @@ public class Cart {
 		System.out.format("%2s%15s%10s%10s%10s%7s%15s\n",
 						  "Id","Title","Category","Director",
 						  "Length","Cost","CreatedDate");
-		
-		for (int c= 0; c<qty;c++)
-			System.out.format("%2s%15s%10s%10s%10s%6s$%15s\n", list[c].getId(),
+		if (qty>0) {
+			for (int c= 0; c<qty;c++)
+				System.out.format("%2s%15s%10s%10s%10s%6s$%15s\n", list[c].getId(),
 							  list[c].getTitle(), list[c].getCategory(), list[c].getDirector(),
 							  list[c].getLength(), list[c].getCost(), list[c].getDateAdded());	
-	
+		}
+		else System.out.println("the cart is empty");
 	}
 	public void printCart(DVD[] list) {
 		
