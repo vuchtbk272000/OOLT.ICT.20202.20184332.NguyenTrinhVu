@@ -1,10 +1,15 @@
 package hust.soict.globalict.aims.utils;
 
-import hust.soict.globalict.aims.disc.DVD;
+import java.util.ArrayList;
 
-public class DVDUtils {
+import hust.soict.globalict.aims.media.*;
+
+public class MediaUtils {
 	DVD min;
-	public int compareByCost(DVD dvd1, DVD dvd2) {
+	public MediaUtils() {
+		
+	}
+	public int compareByCost(Media dvd1, Media dvd2) {
 		if (dvd1.getCost() < dvd2.getCost())	
 			return -1;
 		else if (dvd1.getCost() > dvd2.getCost()) return 1;
@@ -22,7 +27,7 @@ public class DVDUtils {
 		return dvd1;
 	}
 	
-	public int compareByLength(DVD dvd1, DVD dvd2) {
+	public int compareByLength(Media dvd1, Media dvd2) {
 		if (dvd1.getLength() < dvd2.getLength())	
 			return -1;
 		else if (dvd1.getLength() > dvd2.getLength()) return 1;
@@ -51,6 +56,43 @@ public class DVDUtils {
 		dvd2.setLength(tmp.getLength());
 		dvd2.setId(tmp.getId());
 	}
+	public void swap(Book book1, Book book2) {
+		Book tmp= new Book();
+		tmp.setTitle(book1.getTitle());
+		tmp.setCategory(book1.getCategory());
+		tmp.setCost(book1.getCost());
+		tmp.setAuthors(book1.getAuthors());	
+		tmp.setId(book1.getId());
+		
+		book1.setTitle(book2.getTitle());
+		book1.setCategory(book2.getCategory());
+		book1.setCost(book2.getCost());
+		book1.setAuthors(book2.getAuthors());
+		book1.setId(book2.getId());
+		
+		book2.setTitle(tmp.getTitle());
+		book2.setCategory(tmp.getCategory());
+		book2.setCost(tmp.getCost());
+		book2.setAuthors(tmp.getAuthors());
+		book2.setId(tmp.getId());
+	}
+	
+	public void swap(MediaWrapper wrapper1, MediaWrapper wrapper2) {
+		Media tmp = wrapper1.media;
+		wrapper1.media = wrapper2.media;
+		wrapper2.media = tmp;
+	}
+	public ArrayList<MediaWrapper> sortByCost(ArrayList<MediaWrapper> medias){
+		for(int i=0;i<medias.size();i++) {
+			for(int j=i+1;j<medias.size();j++) {
+				if (medias.get(j).media.getCost()>medias.get(i).media.getCost()) {
+					swap(medias.get(i), medias.get(j));
+					
+				}
+			}	
+		}
+		return medias;
+	}
 	public DVD[] sortByCost(DVD[] dvd){
 		for(int i=0;i<dvd.length;i++) {
 			for(int j=i+1;j<dvd.length;j++) {
@@ -65,6 +107,7 @@ public class DVDUtils {
 		}
 		return dvd;
 	}	
+	
 	public DVD[] sortByTitle(DVD[] dvd) {
 		for(int i=0;i<dvd.length;i++) {
 			for(int j=i+1;j<dvd.length;j++) {
@@ -83,6 +126,26 @@ public class DVDUtils {
 			}
 		}
 		return dvd;
+	}
+	
+	public ArrayList<MediaWrapper> sortByTitle(ArrayList<MediaWrapper> medias) {
+		for(int i=0;i<medias.size();i++) {
+			for(int j=i+1;j<medias.size();j++) {
+				if (medias.get(i).media.getTitle().compareToIgnoreCase(medias.get(j).media.getTitle())>0) {
+					swap(medias.get(i), medias.get(j));
+				}
+			}				
+		}
+		for(int i=0;i<medias.size();i++) {
+			for(int j=i+1;j<medias.size();j++) {
+				if (medias.get(i).media.getTitle().compareToIgnoreCase(medias.get(j).media.getTitle())==0) {
+					if (medias.get(i).media.getTitle().compareTo(medias.get(j).media.getTitle())<0) {
+						swap(medias.get(i), medias.get(j));
+					}
+				}
+			}
+		}
+		return medias;
 	}
 	public DVD[] sortByLength(DVD[] dvd) {
 		for(int i=0;i<dvd.length;i++) {

@@ -1,7 +1,7 @@
-package hust.soict.globalict.aims.disc;
+package hust.soict.globalict.aims.media;
 import java.time.LocalDate;
 
-public class DVD {
+public class DVD extends Media {
 	private static DVD total[]= new DVD[1000];
 	
 	private String title;
@@ -47,10 +47,10 @@ public class DVD {
 		return dateAdded;
 	}
 
-	public void printDetail(DVD dvd) {
-		System.out.println(dvd.getId()+"- "+ dvd.getTitle()+"- " + dvd.getCategory()+
-				"- " + dvd.getDirector()+"- " + dvd.getLength()+"- " +
-				dvd.getCost()+"$- "+dateAdded);
+	public String getDetail() {
+		String s;
+		s = "DVD: "+ id + "- "+ title+ "- "+category+"- "+director+"- "+length+"- "+cost+"- "+dateAdded;
+		return s;
 	}
 	public void printDVD(DVD dvd) {
 		
