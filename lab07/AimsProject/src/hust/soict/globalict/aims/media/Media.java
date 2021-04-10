@@ -1,9 +1,11 @@
 package hust.soict.globalict.aims.media;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Media {
-	protected static Media total[]= new Media[1000];
+	protected static ArrayList<Media> medias = new ArrayList<Media>();
 	protected String title;
 	protected String category;
 	protected float cost;
@@ -56,37 +58,78 @@ public class Media {
 	public LocalDate getDateAdded() {
 		return dateAdded;
 	}
-	public Media(String title, String category, float cost) {
-		this.id = nbMedia;
+	
+	
+//------------------------------CONSTRUCTORS--------------------------
+	public Media() {
+		this.id = medias.size();
+		this.dateAdded = LocalDate.now();
+		medias.add(this);
+	}
+	public Media(String title, String category, float cost, int length) {
+		this.id = medias.size();
 		this.title = title;
 		this.category = category;
 		this.cost = cost;
+		this.length = length;
 		this.dateAdded=LocalDate.now();
-		total[nbMedia]=this;	
-		nbMedia++;
+		medias.add(this);
 		
 	}
-	
-
-	public Media() {
-		this.id = nbMedia;
-		this.dateAdded = LocalDate.now();
-		total[nbMedia]=this;
-		nbMedia++;
+	public Media(String title, String category, float cost) {
+		super();
+		this.id = medias.size();
+		this.title = title;
+		this.category = category;
+		this.cost = cost;
+		medias.add(this);
 	}
+
+
 	public String getDetail() {
 		String s = new String();
-		if (this instanceof Book) {
-			Book book = (Book)this;
-			s= book.getDetail();
-		}
-		else if(this instanceof DVD) {
-			DVD dvd = (DVD)this;
-			s = dvd.getDetail();
-		}
+		s = s+ this.getId() +"- "+this.getTitle()+"- "+this.getCost()+"- "+this.getLength();
 		return s;
 	}
-	
-	
+		
+	public static Comparator<Media> byTitle = new Comparator<Media>() {
+		public int compare(Media m1, Media m2) {
+			String t1 = m1.getTitle();
+			String t2 = m2.getTitle();
+			int c= t1.compareToIgnoreCase(t2);
+			if (c==0)
+				c= t1.compareTo(t2);
+			
+			return c;
+		}
+	};
+	public static Comparator<Media> byCost = new Comparator<Media>() {
+		public int compare(Media m1, Media m2) {
+			float t1 = m1.getCost();
+			float t2 = m2.getCost();
+			return (int)(t2-t1);
+		}
+	};
+	public static Comparator<Media> byFields = new Comparator<Media>() {
+		public int compare(Media m1, Media m2) {
+			float c1 = m1.getCost();
+			float c2 = m2.getCost();
+			String t1 = m1.getTitle();
+			String t2 = m2.getTitle();
+			int l1 = m1.getLength();
+			int l2 = m2.getLength();
+			
+			int c= t1.compareToIgnoreCase(t2);
+			if (c==0)
+				c= t1.compareTo(t2);
+			if (c==0)
+				c= (int)(c2-c1);
+			if (c==0)
+				c= (l2-l1);
+				
+			
+			return c;
+		}
+	};
 	
 }

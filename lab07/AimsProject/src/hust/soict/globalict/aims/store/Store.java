@@ -7,30 +7,31 @@ import hust.soict.globalict.aims.cart.*;
 
 public class Store {
 	public static final int MAX_NUMBER = 200;
-	private ArrayList<MediaWrapper> itemsInStore = new	ArrayList<MediaWrapper>();
-	private DVD[] order = new DVD[MAX_NUMBER];
-	private int qty;
+	private ArrayList<Media> itemsInStore = new	ArrayList<Media>();
+
 	public int getQty(){
 		return itemsInStore.size();
 	}
 	public Media getMedia(int i) {
-		return itemsInStore.get(i).media;
+		return itemsInStore.get(i);
 	}
 	
 //--------------------------------ADD & REMOVE-----------------------------------
 	public void addMedia(Media media) {
-		MediaWrapper m = new MediaWrapper(media);
-		itemsInStore.add(m);	
-		System.out.println("the DVD has been added");
+		itemsInStore.add(media);	
+		System.out.println("the DVD has been added.");
 	}
 	
 	public void removeMedia(Media media) {
-		for(MediaWrapper m : itemsInStore) {
-			if (m.media.equals(media)) {
-				itemsInStore.remove(m);
+		for(Media m : itemsInStore) {
+			if (m.equals(media)) {
+				itemsInStore.remove(m);				
+				System.out.println("the Media has been removed.");
 				break;
 			}
+		
 		}
+		System.out.println("the Media is not found");
 
 	}
 //----------------------------------------------------------MENU-----------------------------------------------------
@@ -69,32 +70,9 @@ public class Store {
 
 	}
 	
-//---------------------PRINT DVDs-------------------------------
-//	public void printStore() {
-//		DVD[] list = order;
-//		System.out.println("-----------------------------STORE-----------------------------");
-//		System.out.format("%2s%20s%20s%15s%10s%7s%15s\n",
-//						  "Id","Title","Category","Director",
-//						  "Length","Cost","CreatedDate");
-//		
-//		for (int c= 0; c<qty;c++)
-//			System.out.format("%2s%20s%20s%15s%10s%6s$%15s\n", itemsInStore.get(c).getId(),
-//							  itemsInStore.get(c).getTitle(), itemsInStore.get(c).getCategory(), itemsInStore.get(c).getDirector(),
-//							  itemsInStore.get(c).getLength(), itemsInStore.get(c).getCost(), itemsInStore.get(c).getDateAdded());	
-//	
-//	}
-//	
-	
 	public void printStore() {
-		for( MediaWrapper m : itemsInStore) {
-			if (m.media instanceof Book) {
-				Book book = (Book)m.media;
-				System.out.println(book.getDetail());
-			}
-			else if(m.media instanceof DVD) {
-				DVD dvd = (DVD)m.media;
-				System.out.println(dvd.getDetail());
-			}
+		for( Media m : itemsInStore) {
+			System.out.println(m.getDetail());
 		}
 	
 	}

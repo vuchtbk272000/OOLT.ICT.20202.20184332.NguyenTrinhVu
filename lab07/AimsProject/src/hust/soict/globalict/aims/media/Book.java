@@ -65,7 +65,7 @@ public class Book extends Media {
 		return false;
 		
 	}
-	
+	@Override
 	public String getDetail() {
 		String s;
 		s="BOOK:"+ id+"-   " + title + " -  "+category+" -  ";

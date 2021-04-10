@@ -1,11 +1,12 @@
 package hust.soict.globalict.aims.Aims;
-import hust.soict.globalict.aims.media.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import hust.soict.globalict.aims.cart.Cart;
-import hust.soict.globalict.aims.media.DVD;
+import hust.soict.globalict.aims.media.*;
 import hust.soict.globalict.aims.store.Store;
+
 
 public class Aims {
 
@@ -13,7 +14,6 @@ public class Aims {
 		Scanner keyboard = new Scanner(System.in);
 		DVD dvd1 = new DVD("The Lion King", "Animation","Roger Allers",87,19.95f);
 		DVD dvd2 = new DVD("Star Wars","Science Fiction","George Lucas",87, 24.95f);
-		DVD dvd3 = new DVD("Aladdin","Animation",18.99f);
 		DVD dvd4 = new DVD("bo gia","Science Ficiton","Tran Thanh",87, 24.95f);
 		DVD dvd5 = new DVD("kong", "Animation","Roger Allers",87,19.95f);
 		DVD dvd6 = new DVD("Avenger", "Action","Roger Allers",99,19.95f);
@@ -21,7 +21,6 @@ public class Aims {
 		Store aStore= new Store();
 		aStore.addMedia(dvd1);
 		aStore.addMedia(dvd2);
-		aStore.addMedia(dvd3);
 		aStore.addMedia(dvd4);
 		aStore.addMedia(dvd5);
 		aStore.addMedia(dvd6);
@@ -36,17 +35,18 @@ public class Aims {
 		aStore.addMedia(book1);
 		aStore.addMedia(book2);
 		Cart anOrder = new Cart();
-		anOrder.addMedia(dvd3);
 //		anOrder.addDVD(dvd1,dvd2);
-		
-		int check=0, countLucky=0, rand = -1;
+		anOrder.addMedia(dvd1);
+		anOrder.addMedia(book2);
+		int check=0, countLucky=0,i;
+		int rand = -1;
 		
 		
 		do {
 			aStore.showMenu();
 			check = keyboard.nextInt();
 			switch (check) {
-				case 1:{
+				case 1:{//---------------view store-------------
 					int choice;
 					do {
 						
@@ -56,9 +56,16 @@ public class Aims {
 						choice = keyboard.nextInt();
 						
 						switch(choice) {
-						case 1:
-							System.out.println("input id to view DVD's details:");
-							int i= keyboard.nextInt();
+						case 1://-------------------play a Media----------------------
+							i = keyboard.nextInt();
+							if ((aStore.getMedia(i) instanceof Disc)) {
+								Disc disc = (Disc)aStore.getMedia(i);
+								disc.play();
+							}
+							else System.out.println("The Media cannot be played.");
+						case 2://-------------------see a Media's details--------------
+							System.out.println("Input id to view DVD's details:");
+							i= keyboard.nextInt();
 							System.out.println(aStore.getMedia(i).getDetail());
 							System.out.println("Do you want to put it into your cart?\n1.Yes\n2.No\n");
 							check = keyboard.nextInt();
@@ -66,27 +73,36 @@ public class Aims {
 								anOrder.addMedia(aStore.getMedia(i));
 							}
 							break;
-						case 2:
+						case 3://--------------------add a Media to cart-----------------
 							System.out.println("input id to add to your cart:");
 							i= keyboard.nextInt();
 							anOrder.addMedia(aStore.getMedia(i));
 							break;
-						case 3:
+						case 4://--------------------see current cart----------------------
+							anOrder.sortAllFields();
+							anOrder.printCart();
 							if (anOrder.getQty()!=0) {
 								int innerchoice;
 								do {
 									aStore.cartMenu();
 									innerchoice = keyboard.nextInt();
 									switch(innerchoice){
-									case 1:
+									case 1://-------------------play a Media----------------------
+										i = keyboard.nextInt();
+										if ((aStore.getMedia(i) instanceof Disc)) {
+											Disc disc = (Disc)aStore.getMedia(i);
+											disc.play();
+										}
+										else System.out.println("The Media cannot be played.");
+									case 2://---------------------------filter-----------
 										System.out.println("Filter by:\n1. ID\n2. title\n");
 										i = keyboard.nextInt();
-										if (i==1) {
+										if (i==1) {//-------------------by ID-------------
 											System.out.println("input id: ");
 											int id = keyboard.nextInt();
 											sample = anOrder.searchById(id);
 										}
-										else {
+										else {//------------------------by title----------------
 											System.out.println("input keyword: ");
 											keyboard.nextLine();
 											String token= keyboard.nextLine();
@@ -100,7 +116,7 @@ public class Aims {
 										else System.out.println("no DVD matched");
 										sample.clear();
 										break;
-									case 2: 
+									case 3: //-----------------------------sort-----------------
 										System.out.println("Sort by:\n1. cost\n2. title\n3. title-cost-length\n");
 										i = keyboard.nextInt();
 										if (i==1) { 
@@ -108,10 +124,10 @@ public class Aims {
 										}
 										else if (i==2)
 											anOrder.sortByTitle();
-//										else anOrder.sortAllField();
+										else anOrder.sortAllFields();
 										anOrder.printCart();
 										break;
-									case 3:
+									case 4://-------------------------------remove-------------------
 										System.out.println("id of the DVD to removed:");
 										int id= keyboard.nextInt();
 										for (i=0;i<anOrder.getQty();i++) {
@@ -121,7 +137,7 @@ public class Aims {
 											}
 										}
 										break;
-									case 4:{
+									case 5:{//-------------------------------lucky item-------------------
 										
 										if (countLucky<1) { 
 												rand=anOrder.getLuckyItem();
@@ -130,12 +146,14 @@ public class Aims {
 										else System.out.println("you already got your Lucky item");
 										break;
 									}
-									case 5:
-										System.out.println("an order is created ");
-										while(anOrder.getQty()!=0) {
-											anOrder.clear();
-										}
-										break;										
+									case 6://-------------------------------------place an order------------------
+										if (rand>-1)
+											System.out.println("an order is created.\nTotal cost: "+(anOrder.totalCost()-anOrder.luckyItem(rand).getCost()));
+										else System.out.println("an order is created.\nTotal cost: "+(anOrder.totalCost()));
+										anOrder.clear();
+										innerchoice =0;
+										break;
+																			
 									}									
 								}while (innerchoice !=0);	
 								break;
@@ -146,29 +164,38 @@ public class Aims {
 					break;
 				}
 				
-				case 2:
+				case 2://-----------------------------update store---------------
 					System.out.println("Do you want to:\n1. add a DVD\nor\n2. remove a DVD\n");
 					int  choice = keyboard.nextInt();
 					if (choice==1) {
 						System.out.println("input DVD id to add to store:");
 						int id = keyboard.nextInt();
-						aStore.addMedia(dvd1.getDVDById(id));
+						aStore.addMedia(aStore.getMedia(id));
 					}
 					else {
 						System.out.println("input DVD id to add to store:");
 						int id = keyboard.nextInt();
-						aStore.removeMedia(dvd1.getDVDById(id));
+						aStore.removeMedia(aStore.getMedia(id));
 					}
 					break;
-				case 3:
+				case 3://-----------------------------see current cart----------------------
+					anOrder.sortAllFields();
+					anOrder.printCart();
 					if (anOrder.getQty()!=0) {
 					do {
 						aStore.cartMenu();
 						choice = keyboard.nextInt();
 						switch(choice){
-						case 1:
+						case 1://-------------------play a Media----------------------
+							i = keyboard.nextInt();
+							if ((aStore.getMedia(i) instanceof Disc)) {
+								Disc disc = (Disc)aStore.getMedia(i);
+								disc.play();
+							}
+							else System.out.println("The Media cannot be played.");
+						case 2://------------------------------------filter--------------------
 							System.out.println("Filter by:\n1. ID\n2. title\n");
-							int i = keyboard.nextInt();
+							i = keyboard.nextInt();
 							if (i==1) {
 								System.out.println("input id: ");
 								int id = keyboard.nextInt();
@@ -189,7 +216,7 @@ public class Aims {
 							else System.out.println("no DVD matched");
 							sample.clear();
 							break;
-						case 2: 
+						case 3://----------------------------------sort--------------------------- 
 							System.out.println("Sort by:\n1. cost\n2. title\n3. title-cost-length\n");
 							i = keyboard.nextInt();
 							if (i==1) { 
@@ -197,10 +224,10 @@ public class Aims {
 							}
 							else if (i==2)
 								anOrder.sortByTitle();
-//							else anOrder.sortAllField();
+							else anOrder.sortAllFields();
 							anOrder.printCart();
 							break;
-						case 3:
+						case 4://-----------------------------------remove-----------------------------
 							System.out.println("id of the DVD to removed:");
 							int id= keyboard.nextInt();
 							for (i=0;i<anOrder.getQty();i++) {
@@ -210,7 +237,7 @@ public class Aims {
 								}
 							}
 							break;
-						case 4:
+						case 5://-------------------------------------------lucky item----------------------
 						
 							if (countLucky<1) { 
 									rand=anOrder.getLuckyItem();
@@ -219,9 +246,12 @@ public class Aims {
 							else System.out.println("you already got your Lucky item");
 							break;
 						
-						case 5:
-							System.out.println("an order\r\n"
-									+ "is created and empty the current cart");
+						case 6://---------------------------------------place or
+							if (rand>-1)
+								System.out.println("an order is created.\nTotal cost: "+(anOrder.totalCost()-anOrder.luckyItem(rand).getCost()));
+							else System.out.println("an order is created.\nTotal cost: "+(anOrder.totalCost()));
+							anOrder.clear();
+							choice =0;
 							break;
 							
 						}

@@ -1,5 +1,6 @@
 package hust.soict.globalict.aims.cart;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import hust.soict.globalict.aims.media.DVD;
 import hust.soict.globalict.aims.media.Media;
@@ -7,20 +8,19 @@ import hust.soict.globalict.aims.utils.*;
 
 public class Cart {
 	public static final int MAX_NUMBER_ORDERED = 20;
-	private ArrayList<MediaWrapper> itemsOrdered = new	ArrayList<MediaWrapper>();
+	private ArrayList<Media> itemsOrdered = new	ArrayList<Media>();
 
 	private int qty = 0;
 	public int getQty(){
 		return itemsOrdered.size();
 	}
 	public Media getMedia(int i) {
-		return itemsOrdered.get(i).media;
+		return itemsOrdered.get(i);
 	}
 //--------------------------ADD 1 Media----------------------------
 	public void  addMedia(Media media) {
-		if (qty<=MAX_NUMBER_ORDERED) {
-			MediaWrapper wrapper = new MediaWrapper(media);
-			itemsOrdered.add(wrapper);
+		if (itemsOrdered.size()<=MAX_NUMBER_ORDERED) {
+			itemsOrdered.add(media);
 			System.out.println("the Media has been added");
 			qty++;
 		}
@@ -48,10 +48,9 @@ public class Cart {
 //		return list1;		
 //	}
 	public void removeMedia(Media media) {
-		MediaWrapper wrapper = new MediaWrapper(media);
-		for (MediaWrapper w : itemsOrdered) {
-			if (w.equals(wrapper)){
-				itemsOrdered.remove(w);
+		for (Media m : itemsOrdered) {
+			if (m.equals(media)){
+				itemsOrdered.remove(m);
 				break;
 			}
 		}
@@ -61,11 +60,11 @@ public class Cart {
 		itemsOrdered.clear();
 	}
 //----------------------------TOTAL COST-----------------------------
-	public float totalcost() {
+	public float totalCost() {
 		
 		float sum=0;
-		for (MediaWrapper w : itemsOrdered) {
-			sum+=w.media.getCost();		
+		for (Media m : itemsOrdered) {
+			sum+=m.getCost();		
 		}
 		return sum;
 	}
@@ -77,152 +76,69 @@ public class Cart {
 //		}
 //		return sum;
 //	}
-////----------------------------ADD DVD Arr---------------
-//	public void addDVD(DVD [] dvdList) {
-//		for (int i =0; i< dvdList.length; i++) {
-//			if (qty<=MAX_NUMBER_ORDERED) {
-//				order[qty]= dvdList[i];
-//				qty++;
-//				System.out.println("the DVD has been added");
-//			}
-//			else {
-//				System.out.println("the cart is full");
-//			}
-//		}
-//	}
-////----------------------------ADD 2 DVDs-----------------
-//	public void addDVD(DVD dvd1,DVD dvd2){
-//		if (qty<=MAX_NUMBER_ORDERED) {
-//			order[qty]= dvd1;
-//			qty++;
-//			System.out.println("the DVD has been added");
-//		}
-//		else {
-//			System.out.println("the cart is full");
-//		}
-//		if (qty<=MAX_NUMBER_ORDERED) {
-//			order[qty]= dvd2;
-//			qty++;
-//			System.out.println("the DVD has been added");
-//		}
-//		else {
-//			System.out.println("the cart is full");
-//		}
-//	}
-//-----------------------------SORT BY COST--------------------
-//	public void sortByCost(DVD[] list) {
+//------------------------------------sort--------------------------------
+	public void sortByCost() {
+		Collections.sort(itemsOrdered, Media.byCost);
+	}
+	public void sortByTitle() {
+		Collections.sort(itemsOrdered,Media.byTitle);
+	}
+	public void sortAllFields() {
+		Collections.sort(itemsOrdered,Media.byFields);
+	}
+////-----------------------------SORT ALL FIELDS--------------------
+//	public DVD[] sortAllField(DVD[] list) {
 //		MediaUtils Utils = new MediaUtils();
-//		System.out.println("list sorted by cost:");
-//		for (int c=0;c<list.length;c++) {
-//			list[c] = Utils.sortByCost(list)[c];
-//		}
+//		
+//		sortByTitle(list);
 //		for(int i=0;i<list.length;i++) {
 //			for(int j=i+1;j<list.length;j++) {
-//				if (list[i].getCost()==list[j].getCost()) 
-//					if (list[i].getTitle().compareTo(list[j].getTitle())>0) 			
-//						Utils.swap(list[i], list[j]);				
-//		
+//				if (list[i].getTitle().compareTo(list[j].getTitle())==0) {
+//					if(Utils.compareByCost(list[i],list[j])<0) {
+//						Utils.swap(list[i], list[j]);
+//					}
 //				}
 //			}
 //		}
-	
-		
-		
-//	public  DVD[] sortByCost() {
+//		for(int i=0;i<list.length;i++) {
+//			for(int j=i+1;j<list.length;j++) {
+//				if (list[i].getTitle().compareTo(list[j].getTitle())==0) {
+//					if (Utils.compareByCost(list[i],list[j])==0) {
+//					if(Utils.compareByLength(list[i],list[j])<0) {
+//						Utils.swap(list[i], list[j]);
+//					}
+//				}
+//				}
+//			}
+//		}
 //		
-//		DVD[] list = new DVD[qty];
-//		for (int i =0;i<qty;i++) {
-//			list[i]=itemsOrdered.get(i);
-//		}
+//			
+//		return list;
+//	}
+//	public ArrayList<MediaWrapper> sortAllField() {
 //		MediaUtils Utils = new MediaUtils();
-//		System.out.println("list sorted by cost:");
-//		for (int c=0;c<qty;c++) {
-//			list[c] = Utils.sortByCost(list)[c];
+//		ArrayList<MediaWrapper> list = new ArrayList<MediaWrapper>();
+//		this.sortByTitle();
+//		for (int i =0;i<itemsOrdered.size();i++) {
+//			list.add(itemsOrdered.get(i));
 //		}
+//		DVD tmp = new DVD();
+//		
+//		for(int i=0;i<list.size();i++) {
+//			for(int j=i+1;j<list.size();j++) {
+//				if (list.get(i).media.getTitle().compareTo(list.get(j).media.getTitle())==0) {
+//					if (Utils.compareByCost(list.get(i).media,list.get(j).media)==0) {
+//					if(Utils.compareByLength(list.get(i).media,list.get(j).media)<0) {
+//						Utils.swap(list.get(i), list.get(j));
+//					}
+//				}
+//				}
+//			}
+//		}
+//		
 //		
 //		return list;
 //	}
-	public  ArrayList<MediaWrapper> sortByCost() {
-		MediaUtils Utils = new MediaUtils();
-		ArrayList<MediaWrapper> list = new ArrayList<MediaWrapper>();
-		list = Utils.sortByCost(itemsOrdered);		
-		System.out.println("list sorted by cost:");
-		
-		
-		return list;
-	}
-//-----------------------------SORT BY TITLE-------------------
-	public void sortByTitle(DVD[] list) {
-		MediaUtils Utils = new MediaUtils();
-		System.out.println("\nlist sorted by title:");
-		for (int c=0;c<list.length;c++) {
-			list[c] = Utils.sortByTitle(list)[c];
-		}
-				
-	}
-	public ArrayList<MediaWrapper> sortByTitle() {
-		MediaUtils Utils = new MediaUtils();
-		ArrayList<MediaWrapper> list = new ArrayList<MediaWrapper>();
-		list = Utils.sortByTitle(itemsOrdered);		
-		System.out.println("list sorted by title:");
-		
-		
-		return list;
-	}
-	
-//-----------------------------SORT ALL FIELDS--------------------
-	public DVD[] sortAllField(DVD[] list) {
-		MediaUtils Utils = new MediaUtils();
-		
-		sortByTitle(list);
-		for(int i=0;i<list.length;i++) {
-			for(int j=i+1;j<list.length;j++) {
-				if (list[i].getTitle().compareTo(list[j].getTitle())==0) {
-					if(Utils.compareByCost(list[i],list[j])<0) {
-						Utils.swap(list[i], list[j]);
-					}
-				}
-			}
-		}
-		for(int i=0;i<list.length;i++) {
-			for(int j=i+1;j<list.length;j++) {
-				if (list[i].getTitle().compareTo(list[j].getTitle())==0) {
-					if (Utils.compareByCost(list[i],list[j])==0) {
-					if(Utils.compareByLength(list[i],list[j])<0) {
-						Utils.swap(list[i], list[j]);
-					}
-				}
-				}
-			}
-		}
-		
-			
-		return list;
-	}
-	public ArrayList<MediaWrapper> sortAllField() {
-		MediaUtils Utils = new MediaUtils();
-		ArrayList<MediaWrapper> list = new ArrayList<MediaWrapper>();
-		this.sortByTitle();
-		for (int i =0;i<itemsOrdered.size();i++) {
-			list.add(itemsOrdered.get(i));
-		}
-		DVD tmp = new DVD();
-		
-		for(int i=0;i<list.size();i++) {
-			for(int j=i+1;j<list.size();j++) {
-				if (list.get(i).media.getTitle().compareTo(list.get(j).media.getTitle())==0) {
-					if (Utils.compareByCost(list.get(i).media,list.get(j).media)==0) {
-					if(Utils.compareByLength(list.get(i).media,list.get(j).media)<0) {
-						Utils.swap(list.get(i), list.get(j));
-					}
-				}
-				}
-			}
-		}
-		
-		
-		return list;
-	}
 
 //	
 //------------------------------DETAIL CART----------------------------
@@ -255,9 +171,10 @@ public class Cart {
 	}
 	
 	public void printCart() {
-		for (MediaWrapper m : itemsOrdered) {
-			System.out.println(m.media.getDetail());
+		for (Media m : itemsOrdered) {
+			System.out.println(m.getDetail());
 		}
+		System.out.println(totalCost());
 	}
 	
 		
@@ -266,8 +183,8 @@ public class Cart {
 		ArrayList<Media> match = new ArrayList<Media>();
 		int c=0;
 		for(int i =0; i<qty;i++) {
-			if (Integer.toString(itemsOrdered.get(i).media.getId()).contains(Integer.toString(i))) {
-				match.add(itemsOrdered.get(i).media);
+			if (Integer.toString(itemsOrdered.get(i).getId()).contains(Integer.toString(i))) {
+				match.add(itemsOrdered.get(i));
 				c++;
 			}
 		}
@@ -283,8 +200,8 @@ public class Cart {
 		ArrayList<Media> match = new ArrayList<Media>(); 
 		int i=0;
 		for (int c=0;c<qty;c++) {
-			if (itemsOrdered.get(i).media.getTitle().toLowerCase().contains(title.toLowerCase())) {
-				match.add(itemsOrdered.get(i).media);
+			if (itemsOrdered.get(i).getTitle().toLowerCase().contains(title.toLowerCase())) {
+				match.add(itemsOrdered.get(i));
 				i++; 
 			}		
 //			if (i==0) {
@@ -297,7 +214,9 @@ public class Cart {
 	
 //---------------------------LUCKY ITEM------------------------
 	public Media luckyItem(int a) {
-		return itemsOrdered.get(a).media;
+		if (a>-1)
+			return itemsOrdered.get(a);
+		else return null;
 	}
 	public  int getLuckyItem() {
 		int rand=-1;
@@ -305,10 +224,9 @@ public class Cart {
 		else{
 		int range=itemsOrdered.size()-1;
 			rand=(int)(Math.random()*range);
-			Media luckyItem=itemsOrdered.get(rand).media;
+			Media luckyItem=itemsOrdered.get(rand);
 			System.out.print("your lucky item :"); 
 			System.out.println(luckyItem.getDetail());
-			//itemOrdered.get(rand).setCost(0);
 		}
 		return rand;
 		}

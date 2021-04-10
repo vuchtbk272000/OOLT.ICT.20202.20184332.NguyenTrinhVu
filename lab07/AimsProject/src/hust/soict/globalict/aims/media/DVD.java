@@ -1,13 +1,8 @@
 package hust.soict.globalict.aims.media;
 import java.time.LocalDate;
 
-public class DVD extends Disc {
+public class DVD extends Disc implements Playable {
 	private static DVD total[]= new DVD[1000];
-	
-	
-	
-	
-	
 	
 	
 	public DVD getDVDById(int i) {
@@ -16,36 +11,7 @@ public class DVD extends Disc {
 	private static int nbDVD=0;
 	private LocalDate dateAdded;
 	
-// get information
-	public String getTitle() {
-		return title;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-	
-	public String getDirector() {
-		return director;
-	}
-	
-	public int getLength() {
-		return length;
-	}
-	
-	public float getCost() {
-		return cost;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-
-	public LocalDate getDateAdded() {
-		return dateAdded;
-	}
-
+	@Override
 	public String getDetail() {
 		String s;
 		s = "DVD: "+ id + "- "+ title+ "- "+category+"- "+director+"- "+length+"- "+cost+"- "+dateAdded;
@@ -65,8 +31,9 @@ public class DVD extends Disc {
 //  +DVD
 	
 
-	public DVD(String title, String category, float cost, int length, String director) {
-		super(title, category, cost, length, director);
+	public DVD(String title, String category, String director, int length, float cost) {
+		super(title, category, cost, director);
+		this.length = length;
 	}
 
 	
@@ -104,5 +71,9 @@ public class DVD extends Disc {
 		}
 		return false;	
 	}	
-	
+	@Override
+	public void play() {
+		System.out.println("Playing DVD: " + this.getTitle());
+		System.out.println("DVD length: " + this.getLength());
+		}
 }
