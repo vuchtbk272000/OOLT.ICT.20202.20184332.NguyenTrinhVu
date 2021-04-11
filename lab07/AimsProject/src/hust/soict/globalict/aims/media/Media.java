@@ -84,7 +84,7 @@ public class Media {
 		this.cost = cost;
 		medias.add(this);
 	}
-
+//--------------------------------------------------
 
 	public String getDetail() {
 		String s = new String();

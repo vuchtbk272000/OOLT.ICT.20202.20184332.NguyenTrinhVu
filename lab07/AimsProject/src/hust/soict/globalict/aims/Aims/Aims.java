@@ -17,6 +17,11 @@ public class Aims {
 		DVD dvd4 = new DVD("bo gia","Science Ficiton","Tran Thanh",87, 24.95f);
 		DVD dvd5 = new DVD("kong", "Animation","Roger Allers",87,19.95f);
 		DVD dvd6 = new DVD("Avenger", "Action","Roger Allers",99,19.95f);
+		CD  cd1  = new CD("Hai Ngoai", "Bolero", 12.5f, "Quang Dung", "Quang Ha");
+		Track t1 = new Track("Hello", 3);
+		Track t2 = new Track("World", 5);
+		cd1.addTrack(t2);
+		cd1.addTrack(t1);
 		ArrayList<Media> sample= new ArrayList<Media>();
 		Store aStore= new Store();
 		aStore.addMedia(dvd1);
@@ -24,6 +29,7 @@ public class Aims {
 		aStore.addMedia(dvd4);
 		aStore.addMedia(dvd5);
 		aStore.addMedia(dvd6);
+		aStore.addMedia(cd1);
 		Book book1 = new Book("Truyen Kieu","poem",12f);
 		book1.addAuthor("Nguyen Du");
 		book1.setContent("t1 t1 t2 t1 t3 t4");
@@ -38,6 +44,8 @@ public class Aims {
 //		anOrder.addDVD(dvd1,dvd2);
 		anOrder.addMedia(dvd1);
 		anOrder.addMedia(book2);
+		anOrder.addMedia(cd1);
+		anOrder.addMedia(book1);
 		int check=0, countLucky=0,i;
 		int rand = -1;
 		
@@ -57,12 +65,14 @@ public class Aims {
 						
 						switch(choice) {
 						case 1://-------------------play a Media----------------------
+							System.out.println("Media's ID:");
 							i = keyboard.nextInt();
 							if ((aStore.getMedia(i) instanceof Disc)) {
 								Disc disc = (Disc)aStore.getMedia(i);
 								disc.play();
 							}
 							else System.out.println("The Media cannot be played.");
+							break;
 						case 2://-------------------see a Media's details--------------
 							System.out.println("Input id to view DVD's details:");
 							i= keyboard.nextInt();
@@ -88,6 +98,7 @@ public class Aims {
 									innerchoice = keyboard.nextInt();
 									switch(innerchoice){
 									case 1://-------------------play a Media----------------------
+										System.out.println("Media's ID:");
 										i = keyboard.nextInt();
 										if ((aStore.getMedia(i) instanceof Disc)) {
 											Disc disc = (Disc)aStore.getMedia(i);
@@ -187,12 +198,14 @@ public class Aims {
 						choice = keyboard.nextInt();
 						switch(choice){
 						case 1://-------------------play a Media----------------------
+							System.out.println("Media's ID:");
 							i = keyboard.nextInt();
 							if ((aStore.getMedia(i) instanceof Disc)) {
 								Disc disc = (Disc)aStore.getMedia(i);
 								disc.play();
 							}
 							else System.out.println("The Media cannot be played.");
+							break;
 						case 2://------------------------------------filter--------------------
 							System.out.println("Filter by:\n1. ID\n2. title\n");
 							i = keyboard.nextInt();
@@ -263,7 +276,11 @@ public class Aims {
 			}
 		}while (check !=0);
 		
-		
+		MemoryDaemon memoryDaemon = new MemoryDaemon();
+		Thread thread = new Thread(memoryDaemon);
+		thread.setDaemon(true);
+		thread.start();
+		memoryDaemon.run();
 		
 		
 		

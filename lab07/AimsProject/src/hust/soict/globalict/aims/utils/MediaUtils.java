@@ -34,27 +34,27 @@ public class MediaUtils {
 		else return 0;
 	}
 	public void swap(DVD dvd1, DVD dvd2) {
-		DVD tmp= new DVD();
-		tmp.setTitle(dvd1.getTitle());
-		tmp.setCategory(dvd1.getCategory());
-		tmp.setCost(dvd1.getCost());
-		tmp.setDirector(dvd1.getDirector());
-		tmp.setLength(dvd1.getLength());
-		tmp.setId(dvd1.getId());
-		
-		dvd1.setTitle(dvd2.getTitle());
-		dvd1.setCategory(dvd2.getCategory());
-		dvd1.setCost(dvd2.getCost());
-		dvd1.setDirector(dvd2.getDirector());
-		dvd1.setLength(dvd2.getLength());
-		dvd1.setId(dvd2.getId());
-		
-		dvd2.setTitle(tmp.getTitle());
-		dvd2.setCategory(tmp.getCategory());
-		dvd2.setCost(tmp.getCost());
-		dvd2.setDirector(tmp.getDirector());
-		dvd2.setLength(tmp.getLength());
-		dvd2.setId(tmp.getId());
+//		DVD tmp= new DVD();
+//		tmp.setTitle(dvd1.getTitle());
+//		tmp.setCategory(dvd1.getCategory());
+//		tmp.setCost(dvd1.getCost());
+//		tmp.setDirector(dvd1.getDirector());
+//		tmp.setLength(dvd1.getLength());
+//		tmp.setId(dvd1.getId());
+//		
+//		dvd1.setTitle(dvd2.getTitle());
+//		dvd1.setCategory(dvd2.getCategory());
+//		dvd1.setCost(dvd2.getCost());
+//		dvd1.setDirector(dvd2.getDirector());
+//		dvd1.setLength(dvd2.getLength());
+//		dvd1.setId(dvd2.getId());
+//		
+//		dvd2.setTitle(tmp.getTitle());
+//		dvd2.setCategory(tmp.getCategory());
+//		dvd2.setCost(tmp.getCost());
+//		dvd2.setDirector(tmp.getDirector());
+//		dvd2.setLength(tmp.getLength());
+//		dvd2.setId(tmp.getId());
 	}
 	public void swap(Book book1, Book book2) {
 		Book tmp= new Book();

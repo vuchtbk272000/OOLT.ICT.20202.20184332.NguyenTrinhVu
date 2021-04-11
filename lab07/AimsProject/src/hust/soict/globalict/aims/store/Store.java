@@ -49,9 +49,11 @@ public class Store {
 	public static void storeMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. See a Media’s details");
-		System.out.println("2. Add a Media to cart");
-		System.out.println("3. See current cart");
+
+		System.out.println("1. Play a media");
+		System.out.println("2. See a Media’s details");
+		System.out.println("3. Add a Media to cart");
+		System.out.println("4. See current cart");
 		System.out.println("0. Exit");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2-3");
@@ -59,11 +61,12 @@ public class Store {
 	public static void cartMenu() {
 		System.out.println("Options: ");
 		System.out.println("--------------------------------");
-		System.out.println("1. Filter Medias in cart");
-		System.out.println("2. Sort Medias in cart");
-		System.out.println("3. Remove Media from cart");
-		System.out.println("4. Get a lucky item from cart");
-		System.out.println("5. Place order");
+		System.out.println("1. Play a media");
+		System.out.println("2. Filter Medias in cart");
+		System.out.println("3. Sort Medias in cart");
+		System.out.println("4. Remove Media from cart");
+		System.out.println("5. Get a lucky item from cart");
+		System.out.println("6. Place order");
 		System.out.println("0. Exit");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2-3-4");
