@@ -15,16 +15,10 @@ public class CD extends Disc implements Playable{
 		this.artist = artist;
 	}
 //-----------------------------------------------------------------------------
-	public boolean addTrack(Track track) {
-		int c=0;
-		for(Track t : tracks)
-			if (t.equals(track)) {
-				c++;
-				break;
-			}
-			if (c>0) return false;
-			else tracks.add(track);
-		return true;
+	public void addTrack(Track track) {
+		if (tracks.contains(track)== false)
+			tracks.add(track);
+		else System.out.println("The item already exists.");
 	}
 	public boolean reomoveTrack(Track track) {
 		for(Track t : tracks)

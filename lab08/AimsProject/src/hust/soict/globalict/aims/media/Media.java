@@ -89,7 +89,7 @@ public class Media {
 		this.cost = cost;
 		medias.add(this);
 	}
-//--------------------------------------------------
+//-----------------------------------COMPARATOR-------------------------
 
 	
 		
@@ -97,18 +97,46 @@ public class Media {
 		public int compare(Media m1, Media m2) {
 			String t1 = m1.getTitle();
 			String t2 = m2.getTitle();
+			float c1 = m1.getCost();
+			float c2 = m2.getCost();
+			int l1 = m1.getLength();
+			int l2 = m2.getLength();
 			int c= t1.compareToIgnoreCase(t2);
 			if (c==0)
 				c= t1.compareTo(t2);
+			if(c==0)
+				if(c2-c1>0) c=1;
+				else if(c2-c1<0) c=-1;
+				else c=0;
+			if (c==0)
+				c= (l2-l1);
+				
 			
 			return c;
 		}
 	};
 	public static Comparator<Media> byCost = new Comparator<Media>() {
 		public int compare(Media m1, Media m2) {
-			float t1 = m1.getCost();
-			float t2 = m2.getCost();
-			return (int)(t2-t1);
+			float c1 = m1.getCost();
+			float c2 = m2.getCost();
+			String t1 = m1.getTitle();
+			String t2 = m2.getTitle();
+			int l1 = m1.getLength();
+			int l2 = m2.getLength();
+			int c=0;
+			if(c2-c1>0) c=1;
+			else if(c2-c1<0) c=-1;
+			else c=0;
+			if (c==0) {
+				c= t1.compareToIgnoreCase(t2);
+				if (c==0)
+					c= t1.compareTo(t2);
+			}
+			if (c==0)
+				c= (l2-l1);
+				
+			
+			return c;
 		}
 	};
 	public static Comparator<Media> byFields = new Comparator<Media>() {
@@ -123,8 +151,12 @@ public class Media {
 			int c= t1.compareToIgnoreCase(t2);
 			if (c==0)
 				c= t1.compareTo(t2);
-			if (c==0)
-				c= (int)(c2-c1);
+			if (c==0) {
+				if(c2-c1>0) c=1;
+				else if(c2-c1<0) c=-1;
+				else c=0;
+			}
+				
 			if (c==0)
 				c= (l2-l1);
 				
@@ -132,6 +164,7 @@ public class Media {
 			return c;
 		}
 	};
+	//-----------------------------------------------------
 	
 	@Override
 	public boolean equals(Object o) {

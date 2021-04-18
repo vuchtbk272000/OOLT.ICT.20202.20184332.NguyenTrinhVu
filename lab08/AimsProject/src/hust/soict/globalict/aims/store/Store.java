@@ -18,9 +18,12 @@ public class Store {
 	
 //--------------------------------ADD & REMOVE-----------------------------------
 	public void addMedia(Media media) {
-		itemsInStore.add(media);	
-		System.out.println("the DVD has been added.");
+		if (itemsInStore.contains(media)){
+			itemsInStore.add(media);	
+			System.out.println("the DVD has been added.");
+		}
 	}
+		
 	
 	public void removeMedia(Media media) {
 		for(Media m : itemsInStore) {

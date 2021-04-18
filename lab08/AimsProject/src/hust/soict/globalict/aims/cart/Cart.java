@@ -19,14 +19,15 @@ public class Cart {
 	}
 //--------------------------ADD 1 Media----------------------------
 	public void  addMedia(Media media) {
-		if (itemsOrdered.size()<=MAX_NUMBER_ORDERED) {
-			itemsOrdered.add(media);
-			System.out.println("the Media has been added");
-			qty++;
-		}
-		else {
-			System.out.println("the cart is full");
-		}
+		if ((itemsOrdered.contains(media)) == false)
+			if (itemsOrdered.size()<=MAX_NUMBER_ORDERED) {
+				itemsOrdered.add(media);
+				System.out.println("the Media has been added");
+				qty++;
+			}
+			else 
+				System.out.println("the cart is full");
+			
 	}
 	
 	
@@ -181,17 +182,11 @@ public class Cart {
 //------------------------------SEARCH BY ID---------------------
 	public ArrayList<Media> searchById(int id) {
 		ArrayList<Media> match = new ArrayList<Media>();
-		int c=0;
 		for(int i =0; i<qty;i++) {
 			if (Integer.toString(itemsOrdered.get(i).getId()).contains(Integer.toString(i))) {
 				match.add(itemsOrdered.get(i));
-				c++;
 			}
 		}
-//		if (c==0) {
-//			DVD noResult = new DVD("no DVD matched");
-//			match.add(noResult);
-//		}
 		return match;
 	}	
 	
@@ -203,11 +198,7 @@ public class Cart {
 			if (itemsOrdered.get(i).getTitle().toLowerCase().contains(title.toLowerCase())) {
 				match.add(itemsOrdered.get(i));
 				i++; 
-			}		
-//			if (i==0) {
-//				DVD noResult = new DVD("no DVD matched");
-//				match.add(noResult);
-//			}
+			}	
 		}
 		return match;	
 	}
