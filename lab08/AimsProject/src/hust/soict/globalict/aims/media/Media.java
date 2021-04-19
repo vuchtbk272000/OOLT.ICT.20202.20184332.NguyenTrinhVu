@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Media {
+public class Media implements Playable, Comparable{
 	protected static ArrayList<Media> medias = new ArrayList<Media>();
 	protected String title;
 	protected String category;
@@ -164,7 +164,23 @@ public class Media {
 			return c;
 		}
 	};
-	//-----------------------------------------------------
+	//----------------------------------------COMPARABLE--------------------------
+
+	public int compareTo(Object object) {
+		if (object instanceof Media);
+		Media media = (Media)object;
+		int c=0;
+		c = this.title.compareToIgnoreCase(media.title);
+		if (c==0) {
+			c = this.title.compareTo(media.title);
+			if (c==0){
+				c=this.category.compareToIgnoreCase(media.category);
+				if (c==0)
+					c=this.category.compareTo(media.category);
+			}
+		}		
+		return c;
+	}
 	
 	@Override
 	public boolean equals(Object o) {
@@ -175,6 +191,10 @@ public class Media {
 			}
 		
 		return false;
+	}
+	@Override
+	public void play() {
+		
 	}
 	
 }

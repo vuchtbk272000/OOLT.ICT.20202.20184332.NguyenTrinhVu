@@ -50,9 +50,10 @@ public class CD extends Disc implements Playable{
 	public void play() {
 		System.out.println(title);
 
-		System.out.println(this.getLength());
+		System.out.println("CD length: "+this.getLength());
 		for (Track t : tracks)
 			t.play();
+		
 	}
 	
 	

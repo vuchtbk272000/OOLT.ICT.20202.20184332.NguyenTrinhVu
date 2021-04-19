@@ -2,7 +2,7 @@ package hust.soict.globalict.aims.media;
 
 import java.util.ArrayList;
 
-public class Track implements Playable, Comparable<Track> {
+public class Track implements Playable, Comparable{
 	private String title;
 	private int length;
 	public int getLength() {
@@ -34,9 +34,21 @@ public class Track implements Playable, Comparable<Track> {
 		
 		return false;
 	}
-	public	int compareTo(Track track) {
-		return 0;
+	@Override
+	public int compareTo(Object object) {
+		int c=0;
+		if (object instanceof Track) {
+			Track track = (Track)object;
+			c = track.title.compareToIgnoreCase(this.title);
+			if (c==0) {
+				c = this.title.compareTo(track.title);
+				if (c==0){
+					c = track.length-this.length;
+				}
+			}		
+		}
+		
+		return c;
 	}
-	
 	
 }	

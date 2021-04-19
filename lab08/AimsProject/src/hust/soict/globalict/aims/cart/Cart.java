@@ -4,7 +4,6 @@ import java.util.Collections;
 
 import hust.soict.globalict.aims.media.DVD;
 import hust.soict.globalict.aims.media.Media;
-import hust.soict.globalict.aims.utils.*;
 
 public class Cart {
 	public static final int MAX_NUMBER_ORDERED = 20;
