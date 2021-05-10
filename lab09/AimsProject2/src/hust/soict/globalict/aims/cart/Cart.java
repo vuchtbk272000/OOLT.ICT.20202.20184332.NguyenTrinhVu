@@ -16,8 +16,13 @@ public class Cart {
 	public Media getMedia(int i) {
 		return itemsOrdered.get(i);
 	}
+	public ArrayList<Media> getItemsInCart(){
+		return itemsOrdered;
+	}
 //--------------------------ADD 1 Media----------------------------
 	public void  addMedia(Media media) {
+		if (itemsOrdered.size() == 0) itemsOrdered.add(media);
+		else {
 		if ((itemsOrdered.contains(media)) == false)
 			if (itemsOrdered.size()<=MAX_NUMBER_ORDERED) {
 				itemsOrdered.add(media);
@@ -26,7 +31,7 @@ public class Cart {
 			}
 			else 
 				System.out.println("the cart is full");
-			
+		}
 	}
 	
 	

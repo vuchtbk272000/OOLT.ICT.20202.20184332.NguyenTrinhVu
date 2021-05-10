@@ -21,6 +21,7 @@ public class AddMediaToStoreScreen extends JFrame {
 	protected TextField costField;
 	protected TextField lengthField;
 	public AddMediaToStoreScreen() {
+		
 		ButtonListener btnListener =new ButtonListener();
 		Container cp=getContentPane();
 		cp.setLayout(new GridLayout(6,2));
