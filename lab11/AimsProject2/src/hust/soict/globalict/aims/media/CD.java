@@ -51,26 +51,34 @@ public class CD extends Disc implements Playable{
 	}
 	@Override
 	public void play() throws PlayerException{
-		System.out.println(title);
-		System.out.println("CD length: "+this.getLength());
-		for (Track t : tracks)
-			try {
-				t.play();
-			}
-			catch (PlayerException e) {
-				throw e;
-			}		
+		if (this.getLength()>0) {
+			System.out.println(title);
+			System.out.println("CD length: "+this.getLength());
+			for (Track t : tracks)
+				try {
+					t.play();
+				}
+				catch (PlayerException e) {
+					throw e;
+				}		
+		}
+		else throw new PlayerException("ERROR: The CD length is non-positive.\n");
 	}
 	
+	@SuppressWarnings("unused")
 	@Override
-	public boolean equals(Object o) {
-		if (o instanceof CD) {
-			CD media = (CD)o;
-			if (this.title==media.title && this.cost == media.cost)
-				return true;
-			else return false;
-		}else return false;
-	
+	public boolean equals(Object o) throws NullPointerException, ClassCastException {
+		if (this != null) {
+			if (o instanceof CD) {
+				CD media = (CD)o;
+				if (this.title==media.title && this.cost == media.cost)
+					return true;
+				else return false;
+			}else
+				throw new ClassCastException("The media is not a CD.\n");
+		}
+		else return false;
+//		throw new NullPointerException("Null.\n");
 	}
 	
 	

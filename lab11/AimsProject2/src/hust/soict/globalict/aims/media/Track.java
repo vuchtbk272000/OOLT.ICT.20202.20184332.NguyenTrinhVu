@@ -24,7 +24,7 @@ public class Track implements Playable, Comparable{
 			System.out.println("Playing Track: " + this.getTitle());
 			System.out.println("Track length: " + this.getLength());
 		}
-		else System.out.println("ERROR: the track's length is non-positive");
+		else System.out.println("ERROR: The track's length is non-positive.\n");
 	}
 	@Override
 	public boolean equals(Object o) {

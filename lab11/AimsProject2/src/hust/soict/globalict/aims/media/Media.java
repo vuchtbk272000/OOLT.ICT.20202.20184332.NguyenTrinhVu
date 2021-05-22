@@ -167,35 +167,41 @@ public class Media implements  Comparable{
 	//----------------------------------------COMPARABLE--------------------------
 
 	public int compareTo(Object object) {
-		if (object instanceof Media);
-		Media media = (Media)object;
-		int c=0;
-		c = this.title.compareToIgnoreCase(media.title);
-		if (c==0) {
-			c = this.title.compareTo(media.title);
-			if (c==0){
-				c=this.category.compareToIgnoreCase(media.category);
-				if (c==0)
-					c=this.category.compareTo(media.category);
-			}
-		}		
-		return c;
+		if (object instanceof Media) {
+			Media media = (Media)object;
+			int c=0;
+			c = this.title.compareToIgnoreCase(media.title);
+			if (c==0) {
+				c = this.title.compareTo(media.title);
+				if (c==0){
+					c=this.category.compareToIgnoreCase(media.category);
+					if (c==0)
+						c=this.category.compareTo(media.category);
+				}
+			}		
+			return c;
+		}
+		else throw new ClassCastException("The object is not media.\n");
 	}
 	
+	@SuppressWarnings("unused")
 	@Override
 	public boolean equals(Object o){
-		if (o instanceof Media) {			
-			Media media = (Media)o;
-			if (media != null) {
+		if (this != null) {			
+			
+			if (o instanceof Media) {
+				Media media = (Media)o;
 				if (this.title==media.title && this.cost == media.cost)
 					return true;
 				else return false;
 			}
-			else return false;
-//				throw new NullPointerException("NULL");
+			else 
+				throw new ClassCastException("Class Cast Exception");	
+				
 		}
 		else return false;
-//			throw new ClassCastException("Class Cast Exception");		
+			
+//			throw new NullPointerException("NULL");
 			
 		
 	}

@@ -7,6 +7,7 @@ import hust.soict.globalict.aims.media.Track;
 
 public class test {
 
+	@SuppressWarnings("null")
 	public static void main(String[] args) throws InterruptedException {
 		DVD dvd1 = new DVD("The Lion King", "Animation","Roger Allers",-87,19.95f);
 		CD  cd1  = new CD("Hai Ngoai", "Bolero", 12.5f, "Quang Dung", "Quang Ha");
@@ -22,15 +23,15 @@ public class test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(cd1.getDetail());
+//		System.out.println(cd1.getDetail());
 		try	{
-			System.out.println(dvd2.equals(dvd1));
+			System.out.println(cd3.equals(dvd1));
 		}
 		catch(NullPointerException e) {
 			System.out.println("NULL");
 		}
 		catch (ClassCastException e) {
-			System.out.println("Class Cast Excption");
+			e.printStackTrace();
 			}
 		
     }

@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import javax.naming.LimitExceededException;
 
+import hust.soict.globalict.aims.exception.LuckyException;
 import hust.soict.globalict.aims.media.DVD;
 import hust.soict.globalict.aims.media.Media;
 import javafx.collections.FXCollections;
@@ -218,17 +219,17 @@ public class Cart {
 			return itemsOrdered.get(a);
 		else return null;
 	}
-	public  int getLuckyItem() {
+	public  int getLuckyItem() throws LuckyException {
 		int rand=-1;
-		if (itemsOrdered.size()==0) System.out.println("your card is empty");
-		else{
-		int range=itemsOrdered.size()-1;
-			rand=(int)(Math.random()*range);
-			Media luckyItem=itemsOrdered.get(rand);
-			System.out.print("your lucky item :"); 
-			System.out.println(luckyItem.getDetail());
-		}
-		return rand;
+			if (itemsOrdered.size()==0) System.out.println("your card is empty");
+			else if(itemsOrdered.size()>5 && this.totalCost()>100){
+				int range=itemsOrdered.size()-1;
+				rand=(int)(Math.random()*range);
+				Media luckyItem=itemsOrdered.get(rand);
+				System.out.print("your lucky item :"); 
+				System.out.println(luckyItem.getDetail());
+			}else throw new LuckyException("Your cart has to meet demands to get a lucky item:\nquantity>5\nTotal cost >100$\n");
+				return rand;
 		}
 	
 	
